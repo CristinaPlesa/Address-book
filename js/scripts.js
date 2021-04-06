@@ -16,9 +16,9 @@ AddressBook.prototype.addContacts = function() {
     this.addContact(contact)
   }
 }
-contact0 = new Contact({firstName: 'Jeremy', lastName: 'Banka', emailAddress: 'jeremy@email.com'})
-contact1 = new Contact({firstName: 'Cristina', lastName: 'Plesa', physicalAddress: "Cristina's House"})
-contact2 = new Contact({firstName: 'Brendan', lastName: 'Eich', phoneNumber: '555-555-5555'})
+contact0 = new Contact({ firstName: 'Jeremy', lastName: 'Banka', emailAddress: { home: 'jeremy@email.com' } })
+contact1 = new Contact({ firstName: 'Cristina', lastName: 'Plesa', physicalAddress: "Cristina's House" })
+contact2 = new Contact({ firstName: 'Brendan', lastName: 'Eich', phoneNumber: '555-555-5555' })
 // -------------------------------------------------------
 
 
@@ -47,13 +47,15 @@ function Contact({
   firstName, 
   lastName, 
   phoneNumber, 
-  emailAddress, 
+  emailAddress,
   physicalAddress
 }) {
   this.firstName = firstName;
   this.lastName = lastName;
   this.phoneNumber = phoneNumber;
-  this.emailAddress = emailAddress;
+  this.emailAddress = {};
+  this.emailAddress.home = emailAddress?.home;
+  this.emailAddress.work = emailAddress?.work;
   this.physicalAddress = physicalAddress;
 }
 
@@ -81,7 +83,8 @@ function showContact(contactId) {
   $(".first-name").html(contact.firstName);
   $(".last-name").html(contact.lastName);
   $(".phone-number").html(contact.phoneNumber);
-  $(".email-address").html(contact.emailAddress);
+  $(".home-email-address").html(contact.emailAddress.home);
+  $(".work-email-address").html(contact.emailAddress.work);
   $(".physical-address").html(contact.physicalAddress);
   let buttons = $("#buttons");
   buttons.empty();
@@ -103,25 +106,35 @@ function attachContactListeners() {
 $(document).ready(function() {
   displayContactDetails(addressBook);
   attachContactListeners();
+  const newContactUnusedEmails = ['work', 'home']
+
+  $("button#add-email").click(function(event) {
+    newContactUnusedEmails.pop()
+  })
   $("form#new-contact").submit(function(event) {
     event.preventDefault();
     const inputtedFirstName = $("input#new-first-name").val();
     const inputtedLastName = $("input#new-last-name").val();
     const inputtedPhoneNumber = $("input#new-phone-number").val();
-    const inputtedEmailAddress = $("input#new-email-address").val();
+    const inputtedHomeEmailAddress = $("input#new-home-email-address").val();
+    const inputtedWorkEmailAddress = $("input#new-work-email-address").val();
     const inputtedPhysicalAddress = $("input#new-physical-address").val();
 
     $("input#new-first-name").val("");
     $("input#new-last-name").val("");
     $("input#new-phone-number").val("");
-    $("input#new-email-address").val("");
+    $("input#new-home-email-address").val("");
+    $("input#new-work-email-address").val("");
     $("input#new-physical-address").val("");
 
     let newContact = new Contact({
       firstName: inputtedFirstName, 
       lastName: inputtedLastName,
       phoneNumber: inputtedPhoneNumber,
-      emailAddress: inputtedEmailAddress,
+      emailAddress: {
+        home: inputtedHomeEmailAddress,
+        work: inputtedWorkEmailAddress,
+      },
       physicalAddress: inputtedPhysicalAddress
     });
     addressBook.addContact(newContact);
