@@ -1,13 +1,26 @@
 // Business Logic for AddressBook ---------
 function AddressBook() {
   this.contacts = {};
-  this.currentId = 0;
+  this.currentId = -1;
 }
 
 AddressBook.prototype.addContact = function(contact) {
   contact.id = this.assignId();
   this.contacts[contact.id] = contact;
 }
+
+// extra function+data for populating our address book ---
+AddressBook.prototype.addContacts = function() {
+  const contacts = arguments
+  for (contact of contacts) {
+    this.addContact(contact)
+  }
+}
+contact0 = new Contact({firstName: 'Jeremy', lastName: 'Banka', emailAddress: 'jeremy@email.com'})
+contact1 = new Contact({firstName: 'Cristina', lastName: 'Plesa', physicalAddress: "Cristina's House"})
+contact2 = new Contact({firstName: 'Brendan', lastName: 'Eich', phoneNumber: '555-555-5555'})
+// -------------------------------------------------------
+
 
 AddressBook.prototype.assignId = function() {
   this.currentId += 1;
@@ -50,6 +63,7 @@ Contact.prototype.fullName = function() {
 
 // User Interface Logic ---------
 let addressBook = new AddressBook();
+addressBook.addContacts(contact0, contact1, contact2)
 
 function displayContactDetails(addressBookToDisplay) {
   let contactsList = $("ul#contacts");
@@ -87,6 +101,7 @@ function attachContactListeners() {
 };
 
 $(document).ready(function() {
+  displayContactDetails(addressBook);
   attachContactListeners();
   $("form#new-contact").submit(function(event) {
     event.preventDefault();
