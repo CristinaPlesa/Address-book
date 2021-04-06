@@ -17,3 +17,16 @@ function Contact(firstName, lastName, phoneNumber) {
 Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
 }
+
+// // Example:
+// //let addressBook = new AddressBook();
+// let contact = new Contact("Ada", "Lovelace", "503-555-0100");
+// let contact2 = new Contact("Grace", "Hopper", "503-555-0199");
+// addressBook.addContact(contact);
+// addressBook.addContact(contact2);
+
+// Then Run:
+// addressBook;
+// addressBook.contacts;
+// addressBook.contacts["Ada"];
+// addressBook.contacts["Ada"].phoneNumber
