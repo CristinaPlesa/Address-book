@@ -1,6 +1,7 @@
 // Business Logic for AddressBook ---------
 function AddressBook() {
   this.contacts = {};
+  this.currentId = 0;
 }
 
 AddressBook.prototype.addContact = function(contact) {
@@ -17,6 +18,8 @@ function Contact(firstName, lastName, phoneNumber) {
 Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
 }
+
+
 
 // // Example:
 // //let addressBook = new AddressBook();
