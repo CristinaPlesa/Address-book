@@ -56,7 +56,7 @@ function displayContactDetails(addressBookToDisplay) {
   let htmlForContactInfo = "";
   Object.keys(addressBookToDisplay.contacts).forEach(function(key) {
     const contact = addressBookToDisplay.findContact(key);
-    htmlForContactInfo += "<li id=" + contact.id + ">" + contact.firstName + " " + contact.lastName + "</li>";
+    htmlForContactInfo += `<li id='${contact.id}'>${contact.firstName} ${contact.lastName}</li>`;
   });
   contactsList.html(htmlForContactInfo);
 };
@@ -71,7 +71,7 @@ function showContact(contactId) {
   $(".physical-address").html(contact.physicalAddress);
   let buttons = $("#buttons");
   buttons.empty();
-  buttons.append("<button class='deleteButton' id=" +  + contact.id + ">Delete</button>");
+  buttons.append(`<button class='deleteButton' id='${contact.id}'>Delete</button>`);
 }
 
 function attachContactListeners() {
